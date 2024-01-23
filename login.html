@@ -73,7 +73,6 @@
                         id="passwordalert"
                       ></div>
                       <a
-                        href="#"
                         onclick="login()"
                         class="btn btn-primary btn-user btn-block"
                       >
@@ -117,11 +116,13 @@
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
-      emailalert.innerText ="Invalid email format";
-      emailalert.style.display="block";
+      emailalert.innerText = "Invalid email format";
+      emailalert.style.display = "block";
+      return false;
     } else {
       emailalert.innerText = "";
-      emailalert.style.display="none";
+      emailalert.style.display = "none";
+      return true;
     }
   }
 
@@ -129,32 +130,46 @@
     var password = document.getElementById("password").value;
 
     if (password.length < 8) {
-      passwordalert.innerText ="Password must be at least 8 characters";
+      passwordalert.innerText = "Password must be at least 8 characters";
       passwordalert.style.display = "block";
+      return false;
     } else {
       passwordalert.innerText = "";
       passwordalert.style.display = "none";
+      return true;
     }
   }
 
   function login() {
-    email = document.getElementById("email").value;
-    password = document.getElementById("password").value;
+    if (validateEmail() && validatePassword()) {
+      // Proceed with login only if both email and password are valid
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
 
-    $.ajax({
-      type: "POST",
-      url: "login.php", // Assuming you create a login.php file
-      data: { email: email, password: password },
-      dataType: "json",
-      success: function (response) {
-        // Handle the response from the server
-        console.log('yes');
-      },
-      error: function () {
-        $("#login-message").text(
-          "An error occurred while processing your request."
-        );
-      },
-    });
+      $.ajax({
+        type: "POST",
+        url: "login.php",
+        data: { email: email, password: password },
+        dataType: "json",
+        success: function (response) {
+          if (response.status === "success") {
+            console.log(response.message);
+            window.location.href = "dashboard.html";
+          } else {
+            console.log("Login failed: " + JSON.stringify(response.message));
+            // Display error message to the user, e.g., $("#login-message").text(response.message);
+          }
+          
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(
+            "AJAX Error:",
+            textStatus,
+            errorThrown,
+            jqXHR.responseText
+          );
+        },
+      });
+    }
   }
 </script>

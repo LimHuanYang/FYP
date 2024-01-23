@@ -6,25 +6,21 @@ include("conn.php");
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$query = "SELECT * FROM users WHERE email = ? AND password = ?";
-$stmt = $conn->prepare($query);
+// Avoid SQL injection by using prepared statements
+$query = "SELECT email,password FROM user WHERE email ='$email'AND password='$password'";
+$result = mysqli_query($conn,$query);
 
-// Bind parameters
-$stmt->bind_param("ss", $email, $password);
-
-// Execute the query
-$stmt->execute();
-
-// Get the result
-$result = $stmt->get_result();
+$response = array();
 
 if ($result->num_rows > 0) {
-    echo "Login successful!";
-} else {
-    echo "Invalid username or password.";
+    $response['status'] = 'success';
+  } else {
+    $response['status'] = 'error';
+    $response['message'] = $conn->error;
 }
 
-// Close the prepared statement and the database connection
-$stmt->close();
+header('Content-Type: application/json');
+echo json_encode($response);
+
 $conn->close();
 ?>
