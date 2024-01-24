@@ -50,6 +50,7 @@
                       autofocus
                       required
                       oninput="validateUsername()"
+                      autocomplete="on"
                     />
                   </div>
                   <div
@@ -94,7 +95,7 @@
                         class="form-control"
                         id="repeatpasswordInput"
                         placeholder="Repeat Password"
-                        onclick="validateRepeatPassword()"
+                        oninput="validateRepeatPassword()"
                         required
                       />
                     </div>
@@ -116,7 +117,12 @@
                       />
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <select class="form-control" id="genderInput" name="gender" oninput="validateGender()">
+                      <select
+                        class="form-control"
+                        id="genderInput"
+                        name="gender"
+                        oninput="validateGender()"
+                      >
                         <option value="" disabled selected>Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -138,6 +144,7 @@
                         min="0"
                         max="300"
                         required
+                        oninput="validateHeight()"
                       />
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -149,17 +156,19 @@
                         min="0"
                         max="300"
                         required
+                        oninput="validateWeight()"
                       />
                     </div>
                   </div>
                   <div
                     class="alert alert-danger"
                     role="alert"
-                    id="height&weightalert"
+                    id="hwalert"
                   ></div>
                   <a
-                    href="login.html"
+                    href="#"
                     class="btn btn-primary btn-user btn-block"
+                    onclick="register()"
                   >
                     Register Account
                   </a>
@@ -188,18 +197,54 @@
     <script src="js/sb-admin-2.min.js"></script>
   </body>
 </html>
-<script src="validation.js"></script>
+
 <script>
-  function getToday() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, "0");
-    const day = today.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
+  usernamealert = document.getElementById("usernamealert").style.display ="none";
+  emailalert = document.getElementById("emailalert").style.display = "none";
+  passwordalert = document.getElementById("passwordalert").style.display ="none";
+  genderalert = document.getElementById("genderalert").style.display = "none";
+  hwalert = document.getElementById("hwalert").style.display = "none";
+
+  document.getElementById("dobInput").max = new Date()
+    .toISOString()
+    .split("T")[0];
+
+  function register() {
+    var username = document.getElementById("usernameInput").value;
+    var email = document.getElementById("emailInput").value;
+    var password = document.getElementById("passwordInput").value;
+    var repeatPassword = document.getElementById("repeatpasswordInput").value;
+    var date = document.getElementById("dobInput").value;
+    var gender = document.getElementById("genderInput").value;
+    var height = document.getElementById("heightInput").value;
+    var weight = document.getElementById("weightInput").value;  
+    
+    if (validateUsername() && validateEmail() && validatePassword()&&validateRepeatPassword()&& validateDob() && validateGender()&&validateHeight()&&validateWeight()) {
+    console.log('ai1');
+      $.ajax({
+        type: "POST",
+        url: "register.php",
+        data: { username:username,email: email, password: password,date:date,gender:gender,height:height,weight:weight },
+        dataType: "json",
+        success: function (response) {
+          if (response.status === "success") {
+            console.log(response.message);
+            window.location.href = "register.html";
+          } else {
+            console.log("Register failed: " + JSON.stringify(response.message));
+            // Display error message to the user, e.g., $("#login-message").text(response.message);
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error(
+            "AJAX Error:",
+            textStatus,
+            errorThrown,
+            jqXHR.responseText
+          );
+        },
+      });
+    }
   }
-
-  // Set the max attribute of the date input to today's date
-  document.getElementById("dobInput").max = getToday();
-
-
 </script>
+<script src="validation.js"></script>
