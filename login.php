@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
     $response['status'] = 'success';
   } else {
     $response['status'] = 'error';
-    $response['message'] = $conn->error;
+    $response['message'] = "Wrong Password or Email. ".$conn->error;
 }
 
 header('Content-Type: application/json');

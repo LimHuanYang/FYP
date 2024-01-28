@@ -220,7 +220,6 @@
     var weight = document.getElementById("weightInput").value;  
     
     if (validateUsername() && validateEmail() && validatePassword()&&validateRepeatPassword()&& validateDob() && validateGender()&&validateHeight()&&validateWeight()) {
-    console.log('ai1');
       $.ajax({
         type: "POST",
         url: "register.php",
@@ -228,9 +227,12 @@
         dataType: "json",
         success: function (response) {
           if (response.status === "success") {
-            console.log(response.message);
-            window.location.href = "register.html";
-          } else {
+            window.location.href = "login.html";
+          } else if(response.status === "exist"){
+            hwalert = document.getElementById("hwalert");
+            hwalert.style.display="block";
+            hwalert.innerText="Account already exist";
+          }else {
             console.log("Register failed: " + JSON.stringify(response.message));
             // Display error message to the user, e.g., $("#login-message").text(response.message);
           }
