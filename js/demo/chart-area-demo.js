@@ -30,24 +30,58 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
-  type: 'line',
+  type: "line",
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-      label: "Earnings",
-      lineTension: 0.3,
-      backgroundColor: "rgba(78, 115, 223, 0.05)",
-      borderColor: "rgba(78, 115, 223, 1)",
-      pointRadius: 3,
-      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointBorderColor: "rgba(78, 115, 223, 1)",
-      pointHoverRadius: 3,
-      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-      pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-    }],
+    labels: [
+      "Day 1",
+      "Day 2",
+      "Day 3",
+      "Day 4",
+      "Day 5",
+      "Day 6",
+      "Day 7",
+      "Day 8",
+      "Day 9",
+      "Day 10",
+      "Day 11",
+      "Day 12",
+      "Day 13",
+      "Day 14",
+      "Day 15",
+      "Day 16",
+      "Day 17",
+      "Day 18",
+      "Day 19",
+      "Day 20",
+      "Day 21",
+      "Day 22",
+      "Day 23",
+      "Day 24",
+      "Day 25",
+      "Day 26",
+      "Day 27",
+      "Day 28",
+      "Day 29",
+      "Day 30",
+      "Day 31",
+    ],
+    datasets: [
+      {
+        label: "Calories Intake",
+        lineTension: 0.3,
+        backgroundColor: "rgba(78, 115, 223, 0.05)",
+        borderColor: "rgba(78, 115, 223, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointBorderColor: "rgba(78, 115, 223, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: [0, 1, 200, 1500, 1000, 2000, 1500, 0, 2000, 3000, 2500, 4000],
+      },
+    ],
   },
   options: {
     maintainAspectRatio: false,
@@ -56,63 +90,70 @@ var myLineChart = new Chart(ctx, {
         left: 10,
         right: 25,
         top: 25,
-        bottom: 0
-      }
+        bottom: 0,
+      },
     },
     scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
+      xAxes: [
+        {
+          time: {
+            unit: "date",
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            maxTicksLimit: 7,
+          },
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
+      ],
+      yAxes: [
+        {
+          ticks: {
+            maxTicksLimit: 5,
+            padding: 10,
+            // Include a dollar sign in the ticks
+            callback: function (value, index, values) {
+              return number_format(value) + "kcal";
+            },
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2],
+          },
         },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          maxTicksLimit: 5,
-          padding: 10,
-          // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            return '$' + number_format(value);
-          }
-        },
-        gridLines: {
-          color: "rgb(234, 236, 244)",
-          zeroLineColor: "rgb(234, 236, 244)",
-          drawBorder: false,
-          borderDash: [2],
-          zeroLineBorderDash: [2]
-        }
-      }],
+      ],
     },
     legend: {
-      display: false
+      display: true,
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
       titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
+      titleFontColor: "#6e707e",
       titleFontSize: 14,
-      borderColor: '#dddfeb',
+      borderColor: "#dddfeb",
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
       displayColors: false,
       intersect: false,
-      mode: 'index',
+      mode: "index",
       caretPadding: 10,
       callbacks: {
-        label: function(tooltipItem, chart) {
-          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-        }
-      }
-    }
-  }
+        label: function (tooltipItem, chart) {
+          var datasetLabel =
+            chart.datasets[tooltipItem.datasetIndex].label || "";
+          return (
+            datasetLabel + ": " + number_format(tooltipItem.yLabel) + "kcal"
+          );
+        },
+      },
+    },
+  },
 });

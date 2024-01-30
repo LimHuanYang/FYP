@@ -5,22 +5,24 @@ Chart.defaults.global.defaultFontColor = '#858796';
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
+  type: "doughnut",
   data: {
-    labels: ["Direct", "Referral", "Social"],
-    datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
+    labels: ["Carbohydrate", "Protein", "Fat"],
+    datasets: [
+      {
+        data: [80, 10, 10],
+        backgroundColor: ["#0d6efd", "#FF0000", "#f0ad4e"],
+        hoverBackgroundColor: ["#0a58ca", "#cc0000", "#d49c32"],
+        hoverBorderColor: ["#094080", "#8c0000", "#9b7c26"],
+      },
+    ],
   },
   options: {
     maintainAspectRatio: false,
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
+      borderColor: "#dddfeb",
       borderWidth: 1,
       xPadding: 15,
       yPadding: 15,
@@ -28,7 +30,7 @@ var myPieChart = new Chart(ctx, {
       caretPadding: 10,
     },
     legend: {
-      display: false
+      display: false,
     },
     cutoutPercentage: 80,
   },
