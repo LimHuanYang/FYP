@@ -180,8 +180,7 @@
 
           <!-- Begin Page Content -->
           <div class="container-fluid">
-            <div id="searchResult">
-            </div>
+            <div id="searchResult"></div>
 
             <!-- Content Row -->
           </div>
@@ -329,8 +328,15 @@
     "Vitamin D",
     "Vitamin K",
   ];
-  var sugars=["Glucose","Fructose","Galactose","Sucrose","Lactose","Maltose"];
-  
+  var sugars = [
+    "Glucose",
+    "Fructose",
+    "Galactose",
+    "Sucrose",
+    "Lactose",
+    "Maltose",
+  ];
+
   $.ajax({
     url:
       "https://api.nal.usda.gov/fdc/v1/food/" +
@@ -339,16 +345,6 @@
     method: "GET",
     success: function (data) {
       console.log(data);
-      //   jsonPortion = data.foodPortions;
-      //   selectPortion = document.getElementById("portionSize");
-      //   jsonPortion.forEach(function (option, index) {
-      //     var optionElement = document.createElement("option");
-      //     optionElement.value = option.gramWeight / 100;
-      //     optionElement.text = option.modifier;
-
-      //     selectPortion.appendChild(optionElement);
-      //   });
-
       showNutrients(data);
     },
     error: function (error) {
@@ -357,12 +353,24 @@
   });
 
   function showNutrients(data) {
+    let foodCategoryDescription;
+
+    if (data.dataType === "SR Legacy" || data.dataType === "Foundation") {
+      foodCategoryDescription = data.foodCategory.description;
+    } else if (data.dataType === "Survey (FNDDS)") {
+      foodCategoryDescription =
+        data.wweiaFoodCategory.wweiaFoodCategoryDescription;
+    } else if (data.dataType === "Branded") {
+      foodCategoryDescription = data.brandedFoodCategory;
+    }
+    
     const optionListHTML = generatePortionOptions(data);
     const mineralsListHTML = showNutrientIfExists(minerals, "mg", data);
     const aminoacidsListHTML = showNutrientIfExists(aminoacids, "g", data);
     const vitaminsListHTML = showNutrientIfExists(vitamins, "mg", data);
     const sugarsListHTML = showNutrientIfExists(sugars, "mg", data);
-    const resultHTML = `
+    const resultHTML =
+      `
             <div class="mb-2">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
@@ -371,22 +379,22 @@
                                 <div
                           id="fdcId"
                           class="text-xs font-weight-bold text-secondary"
-                        >`+
-                        data.fdcId
-                        +`</div>
+                        >` +
+      data.fdcId +
+      `</div>
                         <div
                           id="fooddescription"
                           class="h1 mb-0 font-weight-bold text-primary"
-                        >`+
-                          data.description
-                        +`</div>
+                        >` +
+      data.description +
+      `</div>
                         <div
                           id="foodcategory"
                           class="text-xs font-weight-bold text-primary mb-4"
                         >
-                          `+
-                          data.foodCategory.description
-                        +`
+                          ` +
+      foodCategoryDescription +
+      `
                         </div>
                         <div class="portion-dropdown">
                           <label for="portionSize">Portion Size:</label>
@@ -399,24 +407,34 @@
                         <div class="nutrient-list">
                           <div class="nutrient">
                             <span class="energy-name">Energy</span>:
-                            `+getNutrient(data.foodNutrients,"Energy")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Energy") +
+      `
                           </div>
                           <div class="nutrient">
                             <span class="water-name">Water</span>:
-                            `+getNutrient(data.foodNutrients,"Water")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Water") +
+      `
                           </div>
                           <div class="nutrient">
                             <span class="water-name">Alcohol</span>:
-                            `+getNutrient(data.foodNutrients,"Alcohol")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Alcohol") +
+      `
                           </div>
                           <div class="nutrient">
                             <span class="water-name">Caffeine</span>:
-                            `+getNutrient(data.foodNutrients,"Caffeine")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Caffeine") +
+      `
                           </div>
                           <hr />
                           <!-- Macronutrients -->
                           <!-- Protein -->
-                                <div class="nutrient-category">Protein: `+getNutrient(data.foodNutrients,"Protein")+`</div>
+                                <div class="nutrient-category">Protein: ` +
+      getNutrient(data.foodNutrients, "Protein") +
+      `</div>
                                 <ul class="sub-nutrient-list">
                                     ${aminoacidsListHTML}
                                 </ul>
@@ -426,11 +444,15 @@
                           </div>
                           <div class="nutrient">
                             <span class="fat-name">Fat</span>:
-                            `+getNutrient(data.foodNutrients,"Total lipid (fat)")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Total lipid (fat)") +
+      `
                           </div>
                           <div class="nutrient">
                             <span class="water-name">Fiber</span>:
-                            `+getNutrient(data.foodNutrients,"Fiber, total dietary")+`
+                            ` +
+      getNutrient(data.foodNutrients, "Fiber, total dietary") +
+      `
                           </div>
                           <hr />
 
@@ -447,7 +469,9 @@
                                 </ul>
 
                                 <!-- Vitamins -->
-                                <div class="nutrient-category">Total Sugars: `+getNutrient(data.foodNutrients,"Total Sugars")+`</div>
+                                <div class="nutrient-category">Total Sugars: ` +
+      getNutrient(data.foodNutrients, "Total Sugars") +
+      `</div>
                                 <ul class="sub-nutrient-list">
                                     ${sugarsListHTML}
                                 </ul>
@@ -468,17 +492,17 @@
               <span id="${nutrientName.toLowerCase()}-value">${nutrientValue}</span> ${nutrientUnit}
             </li>`;
   }
-function generatePortionOptions(data) {
+  function generatePortionOptions(data) {
     let optionsHTML = "";
 
-    // Iterate over each portion in the foodPortions array.
-    for (const portion of data.foodPortions) {
-        // Use the portionDescription as the option text and gramWeight as the value.
+    if (data.foodPortions) {
+      for (const portion of data.foodPortions) {
         optionsHTML += `<option value="${portion.gramWeight}/100">${portion.modifier}</option>`;
+      }
     }
 
     return optionsHTML;
-}
+  }
 
   function showNutrientIfExists(nutrientArray, nutrientUnit, data) {
     let nutrientListHTML = "";
@@ -486,9 +510,11 @@ function generatePortionOptions(data) {
     // Iterate over each nutrient in the nutrientArray.
     for (const nutrientName of nutrientArray) {
       // Check if there is a nutrient in the foodNutrients array with the specified name.
-      const matchingNutrient = data.foodNutrients.find(
-  (nutrient) => nutrient.nutrient.name.toLowerCase().includes(nutrientName.toLowerCase())
-);
+      const matchingNutrient = data.foodNutrients.find((nutrient) =>
+        nutrient.nutrient.name
+          .toLowerCase()
+          .includes(nutrientName.toLowerCase())
+      );
 
       if (matchingNutrient) {
         // If the nutrient is found, generate HTML for it.
@@ -499,19 +525,19 @@ function generatePortionOptions(data) {
         );
       }
     }
-    
 
     // Return the accumulated HTML for the nutrient list.
     return nutrientListHTML;
   }
-  function getNutrient(foodNutrients,nutrientname) {
-  // Search for the nutrient where nutrientName is "Energy"
-  var energyNutrient = foodNutrients.find(function (nutrient) {
-    return nutrient.nutrient.name === nutrientname;
-  });
-  
+  function getNutrient(foodNutrients, nutrientName) {
+    // Search for the nutrient where nutrientName is included in the actual nutrient name
+    var matchingNutrient = foodNutrients.find(function (nutrient) {
+      return nutrient.nutrient.name.includes(nutrientName);
+    });
 
-  // If found, return the value; otherwise, return a default value
-  return energyNutrient ? energyNutrient.amount + " " + energyNutrient.nutrient.unitName : " - ";
-}
+    // If found, return the value; otherwise, return a default value
+    return matchingNutrient
+      ? matchingNutrient.amount + " " + matchingNutrient.nutrient.unitName
+      : " - ";
+  }
 </script>
