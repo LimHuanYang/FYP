@@ -181,93 +181,6 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <div id="searchResult">
-              <div class="mb-2">
-                <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div
-                          id="fdcId"
-                          class="text-xs font-weight-bold text-secondary"
-                        >
-                          Food ID
-                        </div>
-                        <div
-                          id="fooddescription"
-                          class="h1 mb-0 font-weight-bold text-primary"
-                        >
-                          Food Description
-                        </div>
-                        <div
-                          id="foodcategory"
-                          class="text-xs font-weight-bold text-primary mb-4"
-                        >
-                          Food Category
-                        </div>
-                        <div class="portion-dropdown">
-                          <label for="portionSize" >Portion Size:</label>
-                          <select id="portionSize" name="portionSize">
-                            <option value="1" selected>100g</option>
-                          </select>
-                        </div>
-                        <!-- Nutrient List -->
-                        <div class="nutrient-list">
-                          <div class="nutrient">
-                            <span class="nutrient-name">Energy</span>:
-                            <span class="nutrient-value">20</span> g
-                          </div>
-                          <div class="nutrient">
-                            <span class="nutrient-name">Water</span>:
-                            <span class="nutrient-value">20</span> g
-                          </div>
-                          <hr />
-                          <!-- Macronutrients -->
-                          <div class="nutrient">
-                            <span class="nutrient-name">Protein</span>:
-                            <span class="nutrient-value">20</span> g
-                          </div>
-                          <div class="nutrient">
-                            <span class="nutrient-name">Carbohydrates</span>:
-                            <span class="nutrient-value">30</span> g
-                          </div>
-                          <div class="nutrient">
-                            <span class="nutrient-name">Fat</span>:
-                            <span class="nutrient-value">10</span> g
-                          </div>
-                          <hr />
-
-                          <!-- Minerals -->
-                          <div class="nutrient-category">Minerals</div>
-                          <ul class="sub-nutrient-list">
-                            <li class="nutrient">
-                              <span class="nutrient-name">Calcium</span>:
-                              <span class="nutrient-value">200</span> mg
-                            </li>
-                            <li class="nutrient">
-                              <span class="nutrient-name">Iron</span>:
-                              <span class="nutrient-value">5</span> mg
-                            </li>
-                          </ul>
-
-                          <!-- Vitamins -->
-                          <div class="nutrient-category">Vitamins</div>
-                          <ul class="sub-nutrient-list">
-                            <li class="nutrient">
-                              <span class="nutrient-name">Vitamin A</span>:
-                              <span class="nutrient-value">200</span> mg
-                            </li>
-                            <li class="nutrient">
-                              <span class="nutrient-name">Vitamin C</span>:
-                              <span class="nutrient-value">5</span> mg
-                            </li>
-                          </ul>
-                        </div>
-                        <!-- End Nutrient List -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <!-- Content Row -->
@@ -355,6 +268,69 @@
 <script src="checklogin.js"></script>
 <script src="checkfdcId.js"></script>
 <script>
+  var minerals = [
+    "Calcium, Ca",
+    "Phosphorus, P",
+    "Potassium, K",
+    "Sodium, Na",
+    "Magnesium, Mg",
+    "Iron, Fe",
+    "Zinc, Zn",
+    "Cobalt",
+    "Copper, Cu",
+    "Manganese, Mn",
+    "Molybdenum",
+    "Iodine",
+    "Selenium, Se",
+    "Sulfur",
+    "Chloride",
+    "Boron",
+    "Silicon",
+    "Vanadium",
+    "Nickel",
+    "Arsenic",
+    "Chromium",
+  ];
+  var aminoacids = [
+    "Alanine",
+    "Arginine",
+    "Asparagine",
+    "Aspartic acid",
+    "Cysteine",
+    "Glutamic acid",
+    "Glutamine",
+    "Glycine",
+    "Histidine",
+    "Isoleucine",
+    "Leucine",
+    "Lysine",
+    "Methionine",
+    "Phenylalanine",
+    "Proline",
+    "Serine",
+    "Threonine",
+    "Tryptophan",
+    "Tyrosine",
+    "Valine",
+    "Selenocysteine",
+  ];
+  var vitamins = [
+    "Vitamin C",
+    "Thiamin",
+    "Riboflavin",
+    "Niacin",
+    "Vitamin B-6",
+    "Folate",
+    "Choline",
+    "Vitamin B-12",
+    "Vitamin A",
+    "Retinol",
+    "Vitamin E",
+    "Vitamin D",
+    "Vitamin K",
+  ];
+  var sugars=["Glucose","Fructose","Galactose","Sucrose","Lactose","Maltose"];
+  
   $.ajax({
     url:
       "https://api.nal.usda.gov/fdc/v1/food/" +
@@ -363,77 +339,179 @@
     method: "GET",
     success: function (data) {
       console.log(data);
-      jsonPortion = data.foodPortions;
-      console.log(jsonPortion);
-      document.getElementById("fdcId").innerText = data.fdcId;
-      document.getElementById("fooddescription").innerText = data.description;
-      document.getElementById("foodcategory").innerText =data.foodCategory.description;
-      selectPortion = document.getElementById("portionSize");
-      jsonPortion.forEach(function (option, index) {
-        var optionElement = document.createElement("option");
-        optionElement.value = option.gramWeight/100;
-        optionElement.text = option.modifier;
+      //   jsonPortion = data.foodPortions;
+      //   selectPortion = document.getElementById("portionSize");
+      //   jsonPortion.forEach(function (option, index) {
+      //     var optionElement = document.createElement("option");
+      //     optionElement.value = option.gramWeight / 100;
+      //     optionElement.text = option.modifier;
 
+      //     selectPortion.appendChild(optionElement);
+      //   });
 
-        selectPortion.appendChild(optionElement);
-      });
-      
-      //displaySearchResults(data);
+      showNutrients(data);
     },
     error: function (error) {
       console.error("Error fetching data:", error);
     },
   });
 
-  function displaySearchResults(results) {
-    // Clear existing content in the searchResult container
-    document.getElementById("searchResult").innerHTML = "";
+  function showNutrients(data) {
+    const optionListHTML = generatePortionOptions(data);
+    const mineralsListHTML = showNutrientIfExists(minerals, "mg", data);
+    const aminoacidsListHTML = showNutrientIfExists(aminoacids, "g", data);
+    const vitaminsListHTML = showNutrientIfExists(vitamins, "mg", data);
+    const sugarsListHTML = showNutrientIfExists(sugars, "mg", data);
+    const resultHTML = `
+            <div class="mb-2">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div
+                          id="fdcId"
+                          class="text-xs font-weight-bold text-secondary"
+                        >`+
+                        data.fdcId
+                        +`</div>
+                        <div
+                          id="fooddescription"
+                          class="h1 mb-0 font-weight-bold text-primary"
+                        >`+
+                          data.description
+                        +`</div>
+                        <div
+                          id="foodcategory"
+                          class="text-xs font-weight-bold text-primary mb-4"
+                        >
+                          `+
+                          data.foodCategory.description
+                        +`
+                        </div>
+                        <div class="portion-dropdown">
+                          <label for="portionSize">Portion Size:</label>
+                          <select id="portionSize" name="portionSize">
+                            <option value="1" selected>100g</option>
+                            ${optionListHTML}
+                          </select>
+                        </div>
+                        <!-- Nutrient List -->
+                        <div class="nutrient-list">
+                          <div class="nutrient">
+                            <span class="energy-name">Energy</span>:
+                            `+getNutrient(data.foodNutrients,"Energy")+`
+                          </div>
+                          <div class="nutrient">
+                            <span class="water-name">Water</span>:
+                            `+getNutrient(data.foodNutrients,"Water")+`
+                          </div>
+                          <div class="nutrient">
+                            <span class="water-name">Alcohol</span>:
+                            `+getNutrient(data.foodNutrients,"Alcohol")+`
+                          </div>
+                          <div class="nutrient">
+                            <span class="water-name">Caffeine</span>:
+                            `+getNutrient(data.foodNutrients,"Caffeine")+`
+                          </div>
+                          <hr />
+                          <!-- Macronutrients -->
+                          <!-- Protein -->
+                                <div class="nutrient-category">Protein: `+getNutrient(data.foodNutrients,"Protein")+`</div>
+                                <ul class="sub-nutrient-list">
+                                    ${aminoacidsListHTML}
+                                </ul>
+                          <div class="nutrient">
+                            <span class="carbohydrates-name">Carbohydrates</span
+                            >: <span class="carbohydrates-value">30</span> g
+                          </div>
+                          <div class="nutrient">
+                            <span class="fat-name">Fat</span>:
+                            `+getNutrient(data.foodNutrients,"Total lipid (fat)")+`
+                          </div>
+                          <div class="nutrient">
+                            <span class="water-name">Fiber</span>:
+                            `+getNutrient(data.foodNutrients,"Fiber, total dietary")+`
+                          </div>
+                          <hr />
 
-    // Assuming results is an array in the returned JSON
-    if (Array.isArray(results)) {
-      for (var i = 0; i < results.length; i++) {
-        // Adjust the property names based on your actual data structure
-        var cardHtml =
-          '<a href="foodinfo.html?fdcId=' +
-          results[i].fdcId +
-          '">' +
-          '<div class="mb-2">' +
-          '<div class="card border-left-info shadow h-100 py-2">' +
-          '<div class="card-body">' +
-          '<div class="row no-gutters align-items-center">' +
-          '<div class="col mr-2">' +
-          '<div class="text-xs font-weight-bold text-grey mb-1">' +
-          results[i].foodCategory + // Adjust property name based on your actual data structure
-          "</div>" +
-          '<div class="h5 mb-0 font-weight-bold text-primary">' +
-          results[i].description +
-          "</div>" +
-          '<div class="text-xs font-weight-bold text-uppercase mb-1">' +
-          getCalories(results[i].foodNutrients) + // Adjust property name based on your actual data structure
-          "</div>" +
-          "</div>" +
-          "</div>" +
-          "</div>" +
-          "</div>" +
-          "</div>" +
-          "</a>";
+                                <!-- Minerals -->
+                                <div class="nutrient-category">Minerals: </div>
+                                <ul class="sub-nutrient-list">
+                                    ${mineralsListHTML}
+                                </ul>
 
-        document.getElementById("searchResult").innerHTML += cardHtml;
-      }
-    } else {
-      console.error("Unexpected data format:", results);
+                                <!-- Vitamins -->
+                                <div class="nutrient-category">Vitamins</div>
+                                <ul class="sub-nutrient-list">
+                                    ${vitaminsListHTML}
+                                </ul>
+
+                                <!-- Vitamins -->
+                                <div class="nutrient-category">Total Sugars: `+getNutrient(data.foodNutrients,"Total Sugars")+`</div>
+                                <ul class="sub-nutrient-list">
+                                    ${sugarsListHTML}
+                                </ul>
+
+                                <!-- ... other HTML elements ... -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+    document.getElementById("searchResult").innerHTML = resultHTML;
+  }
+
+  function generateNutrientHTML(nutrientName, nutrientValue, nutrientUnit) {
+    return `<li id="${nutrientName.toLowerCase()}">
+              <span id="${nutrientName.toLowerCase()}-name">${nutrientName}</span>:
+              <span id="${nutrientName.toLowerCase()}-value">${nutrientValue}</span> ${nutrientUnit}
+            </li>`;
+  }
+function generatePortionOptions(data) {
+    let optionsHTML = "";
+
+    // Iterate over each portion in the foodPortions array.
+    for (const portion of data.foodPortions) {
+        // Use the portionDescription as the option text and gramWeight as the value.
+        optionsHTML += `<option value="${portion.gramWeight}/100">${portion.modifier}</option>`;
     }
-  }
 
-  function getCalories(foodNutrients) {
-    // Search for the nutrient where nutrientName is "Energy"
-    var energyNutrient = foodNutrients.find(function (nutrient) {
-      return nutrient.nutrientName === "Energy";
-    });
+    return optionsHTML;
+}
 
-    // If found, return the value; otherwise, return a default value
-    return energyNutrient
-      ? energyNutrient.value + " " + energyNutrient.unitName
-      : "N/A";
+  function showNutrientIfExists(nutrientArray, nutrientUnit, data) {
+    let nutrientListHTML = "";
+
+    // Iterate over each nutrient in the nutrientArray.
+    for (const nutrientName of nutrientArray) {
+      // Check if there is a nutrient in the foodNutrients array with the specified name.
+      const matchingNutrient = data.foodNutrients.find(
+  (nutrient) => nutrient.nutrient.name.toLowerCase().includes(nutrientName.toLowerCase())
+);
+
+      if (matchingNutrient) {
+        // If the nutrient is found, generate HTML for it.
+        nutrientListHTML += generateNutrientHTML(
+          matchingNutrient.nutrient.name,
+          matchingNutrient.amount,
+          nutrientUnit
+        );
+      }
+    }
+    
+
+    // Return the accumulated HTML for the nutrient list.
+    return nutrientListHTML;
   }
+  function getNutrient(foodNutrients,nutrientname) {
+  // Search for the nutrient where nutrientName is "Energy"
+  var energyNutrient = foodNutrients.find(function (nutrient) {
+    return nutrient.nutrient.name === nutrientname;
+  });
+  
+
+  // If found, return the value; otherwise, return a default value
+  return energyNutrient ? energyNutrient.amount + " " + energyNutrient.nutrient.unitName : " - ";
+}
 </script>
