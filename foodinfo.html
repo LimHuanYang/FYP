@@ -267,6 +267,8 @@
 <script src="checklogin.js"></script>
 <script src="checkfdcId.js"></script>
 <script>
+  var conversion = 1;
+  let result;
   var minerals = [
     "Calcium, Ca",
     "Phosphorus, P",
@@ -344,8 +346,9 @@
       "?format=full&api_key=1dJRcH1R7YBVltK01zYDymKgMHWVAMhLb6A0JwHt",
     method: "GET",
     success: function (data) {
-      console.log(data);
-      showNutrients(data);
+      result = data;
+      console.log(result);
+      showNutrients(result);
     },
     error: function (error) {
       console.error("Error fetching data:", error);
@@ -363,7 +366,7 @@
     } else if (data.dataType === "Branded") {
       foodCategoryDescription = data.brandedFoodCategory;
     }
-    
+
     const optionListHTML = generatePortionOptions(data);
     const mineralsListHTML = showNutrientIfExists(minerals, "mg", data);
     const aminoacidsListHTML = showNutrientIfExists(aminoacids, "g", data);
@@ -398,7 +401,7 @@
                         </div>
                         <div class="portion-dropdown">
                           <label for="portionSize">Portion Size:</label>
-                          <select id="portionSize" name="portionSize">
+                          <select id="portionSize" name="portionSize" onchange="handlePortionChange(this)">
                             <option value="1" selected>100g</option>
                             ${optionListHTML}
                           </select>
@@ -487,9 +490,11 @@
   }
 
   function generateNutrientHTML(nutrientName, nutrientValue, nutrientUnit) {
+    convertedValue = (nutrientValue * conversion).toFixed(3);
+    console.log(conversion);
     return `<li id="${nutrientName.toLowerCase()}">
               <span id="${nutrientName.toLowerCase()}-name">${nutrientName}</span>:
-              <span id="${nutrientName.toLowerCase()}-value">${nutrientValue}</span> ${nutrientUnit}
+              <span id="${nutrientName.toLowerCase()}-value">${convertedValue}</span> ${nutrientUnit}
             </li>`;
   }
   function generatePortionOptions(data) {
@@ -497,7 +502,9 @@
 
     if (data.foodPortions) {
       for (const portion of data.foodPortions) {
-        optionsHTML += `<option value="${portion.gramWeight}/100">${portion.modifier}</option>`;
+        // Divide gramWeight by 100 for the value attribute
+        const value = portion.gramWeight / 100;
+        optionsHTML += `<option value="${value}">${portion.modifier}</option>`;
       }
     }
 
@@ -530,14 +537,22 @@
     return nutrientListHTML;
   }
   function getNutrient(foodNutrients, nutrientName) {
-    // Search for the nutrient where nutrientName is included in the actual nutrient name
-    var matchingNutrient = foodNutrients.find(function (nutrient) {
-      return nutrient.nutrient.name.includes(nutrientName);
-    });
+  // Search for the nutrient where nutrientName is included in the actual nutrient name
+  var matchingNutrient = foodNutrients.find(function (nutrient) {
+    return nutrient.nutrient.name.includes(nutrientName);
+  });
 
-    // If found, return the value; otherwise, return a default value
-    return matchingNutrient
-      ? matchingNutrient.amount + " " + matchingNutrient.nutrient.unitName
-      : " - ";
+  // If found, calculate the converted amount; otherwise, return a default value
+  return matchingNutrient
+    ? (matchingNutrient.amount * conversion).toFixed(3) +
+      " " +
+      matchingNutrient.nutrient.unitName
+    : " - ";
+}
+
+  function handlePortionChange(selectElement) {
+    conversion = selectElement.value;
+
+    showNutrients(result);
   }
 </script>
