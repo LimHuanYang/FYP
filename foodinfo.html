@@ -491,7 +491,6 @@
 
   function generateNutrientHTML(nutrientName, nutrientValue, nutrientUnit) {
     convertedValue = (nutrientValue * conversion).toFixed(3);
-    console.log(conversion);
     return `<li id="${nutrientName.toLowerCase()}">
               <span id="${nutrientName.toLowerCase()}-name">${nutrientName}</span>:
               <span id="${nutrientName.toLowerCase()}-value">${convertedValue}</span> ${nutrientUnit}
