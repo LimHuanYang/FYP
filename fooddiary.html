@@ -435,16 +435,17 @@
       : " - ";
   }
 
-  function handleCardClick(fdcId, resultId) {
+  function handleCardClick(selectedfdcId, resultId) {
     $.ajax({
       url:
         "https://api.nal.usda.gov/fdc/v1/food/" +
-        fdcId +
+        selectedfdcId +
         "?format=full&api_key=1dJRcH1R7YBVltK01zYDymKgMHWVAMhLb6A0JwHt",
       method: "GET",
       success: function (data) {
         result = data;
-        fdcId=result.fdcId;
+        fdcId=selectedfdcId;
+        console.log(fdcId);
         searchinput.value = data.description;
         servinginput.value = ""; // Clear servings input
 
@@ -480,6 +481,7 @@
   }
 
   function addFoodEntry() {
+    console.log(fdcId);
     if (
       searchinput.value === null || searchinput.value === "" ||
       servinginput.value === null ||servinginput.value === "" ||
@@ -489,7 +491,7 @@
       console.error("One or more field are null.");
       return;
     }
-
+console.log(fdcId);
     $.ajax({
       url: "insertfood.php", // Adjust the path to your PHP script
       method: "POST",
@@ -503,7 +505,15 @@
       },
       success: function (response) {
         console.log(response);
-        
+        if(response.status===success){
+            searchinput.value="";
+            servinginput.value="";
+            servinginput.disabled=true;
+            portionsizedropdown.innerHTML='<option value="1" selected>100g</option>';
+            portionsizedropdown.disabled=true;
+            datePicker.value="";
+
+        }
       },
       error: function (error) {
         console.error("Error:", error);
