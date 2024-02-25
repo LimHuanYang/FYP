@@ -317,7 +317,6 @@ function displaySearchResults(results) {
     for (var i = 0; i < results.length; i++) {
       // Adjust the property names based on your actual data structure
       var cardHtml =
-      '<a href="foodinfo.html?fdcId='+ results[i].fdcId+'">'+
         '<div class="mb-2">' +
         '<div class="card border-left-info shadow h-100 py-2">' +
         '<div class="card-body">' +
@@ -336,8 +335,7 @@ function displaySearchResults(results) {
         "</div>" +
         "</div>" +
         "</div>" +
-        "</div>" +
-        "</a>";
+        "</div>";
 
       document.getElementById("searchResult").innerHTML += cardHtml;
     }

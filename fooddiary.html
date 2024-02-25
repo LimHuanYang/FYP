@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Compare Food</title>
+    <title>Food Diary</title>
 
     <!-- Custom fonts for this template-->
     <link
@@ -64,7 +64,7 @@
         <li class="nav-item">
           <a class="nav-link" href="searchfood.html">
             <i class="fas fa-fw fa-search"></i>
-            <span>Compare Food</span>
+            <span>Search Food</span>
           </a>
         </li>
         <li class="nav-item">
@@ -184,11 +184,16 @@
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
             >
-              <h1 class="h3 mb-0 text-gray-800">Search Food</h1>
+              <h1 class="h3 mb-0 text-gray-800">Food Diary</h1>
             </div>
-            <div class="row">
-              <div class="col">
-                <div class="input-group mb-2">
+
+            <div class="container mt-5">
+              <h1 class="mb-4">Food Intake Tracker</h1>
+
+              <!-- Form to add food intake -->
+              <form id="foodForm" class="form-inline mb-2">
+                <div class="form-group mr-2">
+                  <label for="leftsearchInput" class="mr-2">Food : </label>
                   <input
                     type="text"
                     class="form-control bg-white border-5 small"
@@ -197,35 +202,67 @@
                     aria-describedby="basic-addon2"
                     id="leftsearchInput"
                   />
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
                 </div>
-                <div id="leftsearchResult"></div>
-              </div>
-              <div class="col">
-                <div class="input-group mb-2">
+
+                <div class="form-group mr-2">
                   <input
                     type="text"
-                    class="form-control bg-white border-5 small"
-                    placeholder="Search for..."
-                    aria-label="Search"
-                    aria-describedby="basic-addon2"
-                    id="rightsearchInput"
+                    class="form-control"
+                    id="servingsinput"
+                    placeholder="Servings"
+                    required
+                    disabled
                   />
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                    </button>
-                  </div>
                 </div>
-                <div id="rightsearchResult"></div>
+                <div class="form-group mr-2">
+                  <select
+                    class="form-control"
+                    id="portionSizedropdown"
+                    disabled
+                  >
+                    <option value="1" selected>100g</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select class="form-control" id="mealtypedropdown">
+                    <option value="1" selected>Breakfast</option>
+                    <option value="2">Lunch</option>
+                    <option value="3">Dinner</option>
+                    <option value="4">Snack</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="datePicker" class="mr-2">Date: </label>
+                  <input type="date" class="form-control" id="datePicker" />
+                </div>
+              </form>
+              <div id="leftsearchResult"></div>
+              <div class="form-group">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="addFoodEntry()"
+                  disabled
+                  id="addFood"
+                >
+                  Add Food Entry
+                </button>
+              </div>
+              <!-- Display food entries -->
+              <div id="foodEntries" class="mt-4"></div>
+
+              <!-- Total nutrient information -->
+              <div id="totalNutrients" class="mt-4">
+                <h3>Total Nutrient Information</h3>
+                <ul id="nutrientList" class="list-group"></ul>
               </div>
             </div>
+
+            <!-- Content Row -->
           </div>
+          <!-- /.container-fluid -->
         </div>
+        <!-- End of Main Content -->
 
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
@@ -305,81 +342,21 @@
 </html>
 <script src="checklogin.js"></script>
 <script>
-  var conversion = 1;
   let result;
-  var minerals = [
-    "Calcium, Ca",
-    "Phosphorus, P",
-    "Potassium, K",
-    "Sodium, Na",
-    "Magnesium, Mg",
-    "Iron, Fe",
-    "Zinc, Zn",
-    "Cobalt",
-    "Copper, Cu",
-    "Manganese, Mn",
-    "Molybdenum",
-    "Iodine",
-    "Selenium, Se",
-    "Sulfur",
-    "Chloride",
-    "Boron",
-    "Silicon",
-    "Vanadium",
-    "Nickel",
-    "Arsenic",
-    "Chromium",
-  ];
-  var aminoacids = [
-    "Alanine",
-    "Arginine",
-    "Asparagine",
-    "Aspartic acid",
-    "Cysteine",
-    "Glutamic acid",
-    "Glutamine",
-    "Glycine",
-    "Histidine",
-    "Isoleucine",
-    "Leucine",
-    "Lysine",
-    "Methionine",
-    "Phenylalanine",
-    "Proline",
-    "Serine",
-    "Threonine",
-    "Tryptophan",
-    "Tyrosine",
-    "Valine",
-    "Selenocysteine",
-  ];
-  var vitamins = [
-    "Vitamin C",
-    "Thiamin",
-    "Riboflavin",
-    "Niacin",
-    "Vitamin B-6",
-    "Folate",
-    "Choline",
-    "Vitamin B-12",
-    "Vitamin A",
-    "Retinol",
-    "Vitamin E",
-    "Vitamin D",
-    "Vitamin K",
-  ];
-  var sugars = [
-    "Glucose",
-    "Fructose",
-    "Galactose",
-    "Sucrose",
-    "Lactose",
-    "Maltose",
-  ];
+  let fdcId;
+  searchinput = document.getElementById("leftsearchInput");
+  servinginput = document.getElementById("servingsinput");
+  portionsizedropdown = document.getElementById("portionSizedropdown");
+  addfoodbutton = document.getElementById("addFood");
+  datePicker = document.getElementById("datePicker");
+  mealtypeDropdown=document.getElementById("mealtypedropdown");
 
   function handleSearchInput(inputId, resultId, delay) {
     let timeoutID;
     document.getElementById(inputId).addEventListener("input", function () {
+      servinginput.disabled = true;
+      portionsizedropdown.disabled = true;
+      addfoodbutton.disabled = true;
       var query = $(this).val();
       clearTimeout(timeoutID);
       timeoutID = setTimeout(function () {
@@ -391,6 +368,7 @@
           method: "GET",
           data: { query: query },
           success: function (data) {
+            result = data;
             displaySearchResults(resultId, data.foods);
           },
           error: function (error) {
@@ -400,6 +378,7 @@
       }, delay);
     });
   }
+
   function displaySearchResults(resultId, results) {
     // Clear existing content in the searchResult container
     document.getElementById(resultId).innerHTML = "";
@@ -423,7 +402,13 @@
           results[i].description +
           "</div>" +
           '<div class="text-xs font-weight-bold text-uppercase mb-1">' +
-          getCalories(results[i].foodNutrients) + // Adjust property name based on your actual data structure
+          getCalories(results[i].foodNutrients, "Energy") +
+          " Carbohydrate:" +
+          getCalories(results[i].foodNutrients, "Carbohydrate, by difference") +
+          " Protein:" +
+          getCalories(results[i].foodNutrients, "Protein") +
+          " Fat:" +
+          getCalories(results[i].foodNutrients, "Total lipid (fat)") +
           "</div>" +
           "</div>" +
           "</div>" +
@@ -438,10 +423,10 @@
     }
   }
 
-  function getCalories(foodNutrients) {
+  function getCalories(foodNutrients, nutrientname) {
     // Search for the nutrient where nutrientName is "Energy"
     var energyNutrient = foodNutrients.find(function (nutrient) {
-      return nutrient.nutrientName === "Energy";
+      return nutrient.nutrientName === nutrientname;
     });
 
     // If found, return the value; otherwise, return a default value
@@ -449,6 +434,7 @@
       ? energyNutrient.value + " " + energyNutrient.unitName
       : " - ";
   }
+
   function handleCardClick(fdcId, resultId) {
     $.ajax({
       url:
@@ -458,7 +444,20 @@
       method: "GET",
       success: function (data) {
         result = data;
-        showNutrients(data, resultId);
+        fdcId=result.fdcId;
+        searchinput.value = data.description;
+        servinginput.value = ""; // Clear servings input
+
+        // Enable the inputs and dropdown
+        servinginput.disabled = false;
+
+        portionsizedropdown.innerHTML += generatePortionOptions(result);
+        portionsizedropdown.disabled = false;
+        addfoodbutton.disabled = false;
+
+        document.getElementById("leftsearchResult").innerHTML = "";
+
+        console.log(result);
       },
       error: function (error) {
         console.error("Error fetching data:", error);
@@ -466,164 +465,6 @@
     });
   }
 
-  function showNutrients(data, resultId) {
-    console.log(data);
-    let foodCategoryDescription;
-    if (data.dataType === "SR Legacy" || data.dataType === "Foundation") {
-      foodCategoryDescription = data.foodCategory.description;
-    } else if (data.dataType === "Survey (FNDDS)") {
-      foodCategoryDescription =
-        data.wweiaFoodCategory.wweiaFoodCategoryDescription;
-    } else if (data.dataType === "Branded") {
-      foodCategoryDescription = data.brandedFoodCategory;
-    }
-
-    const optionListHTML = generatePortionOptions(data);
-    const mineralsListHTML = showNutrientIfExists(minerals, "mg", data);
-    const aminoacidsListHTML = showNutrientIfExists(aminoacids, "g", data);
-    const vitaminsListHTML = showNutrientIfExists(vitamins, "mg", data);
-    const sugarsListHTML = showNutrientIfExists(sugars, "mg", data);
-    const resultHTML =
-      `
-            <div class="mb-2" '">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div
-                          id="fdcId"
-                          class="text-xs font-weight-bold text-secondary"
-                        >` +
-      data.fdcId +
-      `</div>
-                        <div
-                          id="fooddescription"
-                          class="h1 mb-0 font-weight-bold text-primary"
-                        >` +
-      data.description +
-      `</div>
-                        <div
-                          id="foodcategory"
-                          class="text-xs font-weight-bold text-primary mb-4"
-                        >
-                          ` +
-      foodCategoryDescription +
-      `
-                        </div>
-                        <div class="portion-dropdown">
-                          <label for="portionSize">Portion Size:</label>
-                          <select id="portionSize" name="portionSize" onchange="handlePortionChange(this,'` +
-      resultId +
-      `')">
-                            <option value="1" selected>100g</option>
-                            ${optionListHTML}
-                          </select>
-                        </div>
-                        <!-- Nutrient List -->
-                        <div class="nutrient-list">
-                          <div class="nutrient">
-                            <span class="energy-name">Energy</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Energy") +
-      `
-                          </div>
-                          <div class="nutrient">
-                            <span class="water-name">Water</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Water") +
-      `
-                          </div>
-                          <div class="nutrient">
-                            <span class="water-name">Alcohol</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Alcohol") +
-      `
-                          </div>
-                          <div class="nutrient">
-                            <span class="water-name">Caffeine</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Caffeine") +
-      `
-                          </div>
-                          <hr />
-                          <!-- Macronutrients -->
-                          <!-- Protein -->
-                                <div class="nutrient-category">Protein: ` +
-      getNutrient(data.foodNutrients, "Protein") +
-      `</div>
-                                <ul class="sub-nutrient-list">
-                                    ${aminoacidsListHTML}
-                                </ul>
-                          <div class="nutrient">
-                            <span class="carbohydrates-name">Carbohydrates</span
-                            >: <span class="carbohydrates-value">30</span> g
-                          </div>
-                          <div class="nutrient">
-                            <span class="fat-name">Fat</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Total lipid (fat)") +
-      `
-                          </div>
-                          <div class="nutrient">
-                            <span class="water-name">Fiber</span>:
-                            ` +
-      getNutrient(data.foodNutrients, "Fiber, total dietary") +
-      `
-                          </div>
-                          <hr />
-
-                                <!-- Minerals -->
-                                <div class="nutrient-category">Minerals: </div>
-                                <ul class="sub-nutrient-list">
-                                    ${mineralsListHTML}
-                                </ul>
-
-                                <!-- Vitamins -->
-                                <div class="nutrient-category">Vitamins</div>
-                                <ul class="sub-nutrient-list">
-                                    ${vitaminsListHTML}
-                                </ul>
-
-                                <!-- Vitamins -->
-                                <div class="nutrient-category">Total Sugars: ` +
-      getNutrient(data.foodNutrients, "Total Sugars") +
-      `</div>
-                                <ul class="sub-nutrient-list">
-                                    ${sugarsListHTML}
-                                </ul>
-
-                                <!-- ... other HTML elements ... -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    document.getElementById(resultId).innerHTML = resultHTML;
-  }
-  document.getElementById("leftsearchResult").addEventListener("click", function (event) {
-      const cardContainer = event.target.closest(".card-container");
-      if (cardContainer) {
-        const fdcId = cardContainer.getAttribute("data-fdcid");
-        handleCardClick(fdcId, "leftsearchResult");
-      }
-    });
-
-  document
-    .getElementById("rightsearchResult")
-    .addEventListener("click", function (event) {
-      const cardContainer = event.target.closest(".card-container");
-      if (cardContainer) {
-        const fdcId = cardContainer.getAttribute("data-fdcid");
-        handleCardClick(fdcId, "rightsearchResult");
-      }
-    });
-  function generateNutrientHTML(nutrientName, nutrientValue, nutrientUnit) {
-    convertedValue = (nutrientValue * conversion).toFixed(3);
-    return `<li id="${nutrientName.toLowerCase()}">
-              <span id="${nutrientName.toLowerCase()}-name">${nutrientName}</span>:
-              <span id="${nutrientName.toLowerCase()}-value">${convertedValue}</span> ${nutrientUnit}
-            </li>`;
-  }
   function generatePortionOptions(data) {
     let optionsHTML = "";
 
@@ -638,50 +479,47 @@
     return optionsHTML;
   }
 
-  function showNutrientIfExists(nutrientArray, nutrientUnit, data) {
-    let nutrientListHTML = "";
-
-    // Iterate over each nutrient in the nutrientArray.
-    for (const nutrientName of nutrientArray) {
-      // Check if there is a nutrient in the foodNutrients array with the specified name.
-      const matchingNutrient = data.foodNutrients.find((nutrient) =>
-        nutrient.nutrient.name
-          .toLowerCase()
-          .includes(nutrientName.toLowerCase())
-      );
-
-      if (matchingNutrient) {
-        // If the nutrient is found, generate HTML for it.
-        nutrientListHTML += generateNutrientHTML(
-          matchingNutrient.nutrient.name,
-          matchingNutrient.amount,
-          nutrientUnit
-        );
-      }
+  function addFoodEntry() {
+    if (
+      searchinput.value === null || searchinput.value === "" ||
+      servinginput.value === null ||servinginput.value === "" ||
+      portionsizedropdown.value === null ||portionsizedropdown.value === "" ||
+      datePicker.value === null ||datePicker.value === ""
+    ) {
+      console.error("One or more field are null.");
+      return;
     }
 
-    // Return the accumulated HTML for the nutrient list.
-    return nutrientListHTML;
+    $.ajax({
+      url: "insertfood.php", // Adjust the path to your PHP script
+      method: "POST",
+      data: {
+        UID:UID,
+        fdcId: fdcId,
+        servings: servinginput.value,
+        portionsize: portionsizedropdown.value,
+        meal_type:mealtypeDropdown.value,
+        date: datePicker.value,
+      },
+      success: function (response) {
+        console.log(response);
+        
+      },
+      error: function (error) {
+        console.error("Error:", error);
+      },
+    });
   }
-  function getNutrient(foodNutrients, nutrientName) {
-    // Search for the nutrient where nutrientName is included in the actual nutrient name
-    var matchingNutrient = foodNutrients.find(function (nutrient) {
-      return nutrient.nutrient.name.includes(nutrientName);
+
+  document
+    .getElementById("leftsearchResult")
+    .addEventListener("click", function (event) {
+      const cardContainer = event.target.closest(".card-container");
+      if (cardContainer) {
+        const fdcId = cardContainer.getAttribute("data-fdcid");
+        handleCardClick(fdcId, "leftsearchResult");
+      }
     });
 
-    // If found, calculate the converted amount; otherwise, return a default value
-    return matchingNutrient
-      ? (matchingNutrient.amount * conversion).toFixed(3) +
-          " " +
-          matchingNutrient.nutrient.unitName
-      : " - ";
-  }
-
-  function handlePortionChange(selectElement, resultId) {
-    conversion = selectElement.value;
-    showNutrients(result, resultId);
-  }
-
   handleSearchInput("leftsearchInput", "leftsearchResult", 300);
-  handleSearchInput("rightsearchInput", "rightsearchResult", 300);
 </script>
