@@ -25,6 +25,28 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!---->
+    <!-- Bootstrap DateTimePicker CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@4.17.47/build/css/bootstrap-datetimepicker.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap DateTimePicker JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap-datetime-picker@4.17.47/build/js/bootstrap-datetimepicker.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!---->
   </head>
 
   <body id="page-top">
@@ -252,12 +274,63 @@
               <div id="foodEntries" class="mt-4"></div>
 
               <!-- Total nutrient information -->
+              <!-- Total nutrient information -->
               <div id="totalNutrients" class="mt-4">
-                <h3>Total Nutrient Information</h3>
-                <ul id="nutrientList" class="list-group"></ul>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="mb-0">Daily Intake</h3>
+                  <div class="form-group">
+                    <input type="date" class="form-control" id="date" />
+                  </div>
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Food</th>
+                      <th>Intake Amount</th>
+                      <th>Energy</th>
+                      <th>Carbohydrate</th>
+                      <th>Protein</th>
+                      <th>Fat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Breakfast category -->
+                    <tr class="category-row">
+                      <td colspan="7">Breakfast</td>
+                    </tr>
+                  </tbody>
+
+                  <tbody id="breakfastTableBody">
+                    <!-- Breakfast table rows will be dynamically added here -->
+                  </tbody>
+
+                  <!-- Lunch category -->
+                  <tr class="category-row">
+                    <td colspan="7">Lunch</td>
+                  </tr>
+                  <tbody id="lunchTableBody">
+                    <!-- Lunch table rows will be dynamically added here -->
+                  </tbody>
+
+                  <!-- Dinner category -->
+                  <tr class="category-row">
+                    <td colspan="7">Dinner</td>
+                  </tr>
+                  <tbody id="dinnerTableBody">
+                    <!-- Dinner table rows will be dynamically added here -->
+                  </tbody>
+
+                  <!-- Snack category -->
+                  <tr class="category-row">
+                    <td colspan="7">Snack</td>
+                  </tr>
+                  <tbody id="snackTableBody">
+                    <!-- Snack table rows will be dynamically added here -->
+                  </tbody>
+                </table>
               </div>
             </div>
-
             <!-- Content Row -->
           </div>
           <!-- /.container-fluid -->
@@ -349,7 +422,11 @@
   portionsizedropdown = document.getElementById("portionSizedropdown");
   addfoodbutton = document.getElementById("addFood");
   datePicker = document.getElementById("datePicker");
-  mealtypeDropdown=document.getElementById("mealtypedropdown");
+  mealtypeDropdown = document.getElementById("mealtypedropdown");
+  document.getElementById("datePicker").max = new Date()
+    .toISOString()
+    .split("T")[0];
+  document.getElementById("date").max = new Date().toISOString().split("T")[0];
 
   function handleSearchInput(inputId, resultId, delay) {
     let timeoutID;
@@ -444,7 +521,7 @@
       method: "GET",
       success: function (data) {
         result = data;
-        fdcId=selectedfdcId;
+        fdcId = selectedfdcId;
         console.log(fdcId);
         searchinput.value = data.description;
         servinginput.value = ""; // Clear servings input
@@ -481,38 +558,41 @@
   }
 
   function addFoodEntry() {
-    console.log(fdcId);
     if (
-      searchinput.value === null || searchinput.value === "" ||
-      servinginput.value === null ||servinginput.value === "" ||
-      portionsizedropdown.value === null ||portionsizedropdown.value === "" ||
-      datePicker.value === null ||datePicker.value === ""
+      searchinput.value === null ||
+      searchinput.value === "" ||
+      servinginput.value === null ||
+      servinginput.value === "" ||
+      portionsizedropdown.value === null ||
+      portionsizedropdown.value === "" ||
+      datePicker.value === null ||
+      datePicker.value === ""
     ) {
       console.error("One or more field are null.");
       return;
     }
-console.log(fdcId);
+
     $.ajax({
       url: "insertfood.php", // Adjust the path to your PHP script
       method: "POST",
       data: {
-        UID:UID,
+        UID: UID,
         fdcId: fdcId,
         servings: servinginput.value,
         portionsize: portionsizedropdown.value,
-        meal_type:mealtypeDropdown.value,
+        meal_type: mealtypeDropdown.value,
         date: datePicker.value,
       },
       success: function (response) {
         console.log(response);
-        if(response.status===success){
-            searchinput.value="";
-            servinginput.value="";
-            servinginput.disabled=true;
-            portionsizedropdown.innerHTML='<option value="1" selected>100g</option>';
-            portionsizedropdown.disabled=true;
-            datePicker.value="";
-
+        if (response.status === "success") {
+          searchinput.value = "";
+          servinginput.value = "";
+          servinginput.disabled = true;
+          portionsizedropdown.innerHTML =
+            '<option value="1" selected>100g</option>';
+          portionsizedropdown.disabled = true;
+          datePicker.value = "";
         }
       },
       error: function (error) {
