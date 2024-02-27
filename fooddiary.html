@@ -47,7 +47,7 @@
         <hr class="sidebar-divider my-0" />
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="dashboard.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
@@ -55,7 +55,7 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="fooddiary.html">
             <i class="fas fa-fw fa-egg"></i>
             <span>Food Diary</span>
@@ -592,8 +592,21 @@
 
   $(document).ready(function () {
     // Call the function when the document is ready
-    fetchData();
+    fetchData();  
+});
+  function getNutrients(foodNutrients, nutrientname, portion) {
+    var energyNutrient = foodNutrients.find(function (nutrient) {
+      return nutrient.nutrient.name === nutrientname;
+    });
 
+    energyvalue = portion * energyNutrient.amount;
+     energyvalue = parseFloat(energyvalue.toFixed(2));
+    return energyNutrient
+      ? energyvalue + energyNutrient.nutrient.unitName
+      : " - ";
+  }
+  
+  
     function fetchData() {
       // Make an AJAX request to fetch data
       $.ajax({
@@ -637,6 +650,7 @@
       for (var i = 0; i < filteredData.length; i++) {
         var rowData = filteredData[i];
         intake_amount = rowData.servings_value * rowData.portion_unit * 100;
+         intake_amount = parseFloat(intake_amount.toFixed(2));
         var rowHtml =
           "<tr>" +
           "<td>" +
@@ -673,22 +687,35 @@
             rowData.servings_value
           ) +
           "</td>" +
-           "<td><a onclick='deletefooddiary("+rowData.meal_id+")'>Delete</a></td>" + 
+           "<td><a onclick='deletefooddiary("+rowData.meal_id+")' class='btn btn-danger'>Delete</a></td>" + 
           "</tr>";
 
         tableBody.append(rowHtml);
       }
     }
-  });
-  function getNutrients(foodNutrients, nutrientname, portion) {
-    var energyNutrient = foodNutrients.find(function (nutrient) {
-      return nutrient.nutrient.name === nutrientname;
-    });
 
-    energyvalue = portion * energyNutrient.amount;
-    return energyNutrient
-      ? energyvalue + energyNutrient.nutrient.unitName
-      : " - ";
-  }
+  
+function deletefooddiary(meal_id) {
+
+    $.ajax({
+        type: "POST",
+        url: "deletefooddiary.php", 
+        data: { meal_id: meal_id },
+        success: function(response) {
+            console.log("Entry deleted successfully");
+            fetchData();
+        },
+        error: function(xhr, status, error) {
+            console.error("Error deleting entry: " + error);
+        }
+    });
+}
+
+document.getElementById("date").addEventListener("change", function() {
+    
+    fetchData();
+});
+
+  
   handleSearchInput("leftsearchInput", "leftsearchResult", 300);
 </script>
