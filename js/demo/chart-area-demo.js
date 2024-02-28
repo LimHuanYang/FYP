@@ -27,7 +27,7 @@ function number_format(number, decimals, dec_point, thousands_sep) {
   return s.join(dec);
 }
 
-// Area Chart Example
+function updateAreaChart(dailyCalories) {
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: "line",
@@ -79,7 +79,7 @@ var myLineChart = new Chart(ctx, {
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: [0, 1, 200, 1500, 1000, 2000, 1500, 0, 2000, 3000, 2500, 4000],
+        data: dailyCalories,
       },
     ],
   },
@@ -156,4 +156,4 @@ var myLineChart = new Chart(ctx, {
       },
     },
   },
-});
+});}

@@ -9,52 +9,41 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
     <title>Food Diary</title>
-
-    <!-- Custom fonts for this template-->
+    
     <link
       href="vendor/fontawesome-free/css/all.min.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet"
-    />
-
-    <!-- Custom styles for this template-->
+    
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
   </head>
-
   <body id="page-top">
-    <!-- Page Wrapper -->
+    
     <div id="wrapper">
-      <!-- Sidebar -->
+      
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
         id="accordionSidebar"
       >
-        <!-- Sidebar - Brand -->
+        
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
           href="dashboard.html"
         >
           <div class="sidebar-brand-text mx-3">Nutribalance</div>
         </a>
-
-        <!-- Divider -->
+        
         <hr class="sidebar-divider my-0" />
-
-        <!-- Nav Item - Dashboard -->
+        
         <li class="nav-item">
           <a class="nav-link" href="dashboard.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
           >
         </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
+        
         <li class="nav-item active">
           <a class="nav-link" href="fooddiary.html">
             <i class="fas fa-fw fa-egg"></i>
@@ -74,27 +63,25 @@
           </a>
         </li>
       </ul>
-      <!-- End of Sidebar -->
-
-      <!-- Content Wrapper -->
+      
+      
       <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
+        
         <div id="content">
-          <!-- Topbar -->
+          
           <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
           >
-            <!-- Sidebar Toggle (Topbar) -->
+            
             <button
               id="sidebarToggleTop"
               class="btn btn-link d-md-none rounded-circle mr-3"
             >
               <i class="fa fa-bars"></i>
             </button>
-
-            <!-- Topbar Navbar -->
+            
             <ul class="navbar-nav ml-auto">
-              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              
               <li class="nav-item dropdown no-arrow d-sm-none">
                 <a
                   class="nav-link dropdown-toggle"
@@ -107,7 +94,7 @@
                 >
                   <i class="fas fa-search fa-fw"></i>
                 </a>
-                <!-- Dropdown - Messages -->
+                
                 <div
                   class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                   aria-labelledby="searchDropdown"
@@ -130,8 +117,7 @@
                   </form>
                 </div>
               </li>
-
-              <!-- Nav Item - User Information -->
+              
               <li class="nav-item dropdown no-arrow">
                 <a
                   class="nav-link dropdown-toggle"
@@ -151,7 +137,7 @@
                     src="img/undraw_profile.svg"
                   />
                 </a>
-                <!-- Dropdown - User Information -->
+                
                 <div
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
@@ -176,21 +162,18 @@
               </li>
             </ul>
           </nav>
-          <!-- End of Topbar -->
-
-          <!-- Begin Page Content -->
+          
+          
           <div class="container-fluid">
-            <!-- Page Heading -->
+            
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
             >
               <h1 class="h3 mb-0 text-gray-800">Food Diary</h1>
             </div>
-
             <div class="container mt-5">
               <h1 class="mb-4">Food Intake Tracker</h1>
-
-              <!-- Form to add food intake -->
+              
               <form id="foodForm" class="form-inline mb-2">
                 <div class="form-group mr-2">
                   <label for="leftsearchInput" class="mr-2">Food : </label>
@@ -203,7 +186,6 @@
                     id="leftsearchInput"
                   />
                 </div>
-
                 <div class="form-group mr-2">
                   <input
                     type="text"
@@ -248,11 +230,10 @@
                   Add Food Entry
                 </button>
               </div>
-              <!-- Display food entries -->
+              
               <div id="foodEntries" class="mt-4"></div>
-
-              <!-- Total nutrient information -->
-              <!-- Total nutrient information -->
+              
+              
               <div id="totalNutrients" class="mt-4">
                 <div class="d-flex justify-content-between align-items-center">
                   <h3 class="mb-0">Daily Intake</h3>
@@ -273,49 +254,44 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- Breakfast category -->
+                    
                     <tr class="category-row">
                       <td colspan="7" class="text-center font-weight-bold">Breakfast</td>
                     </tr>
                   </tbody>
-
                   <tbody id="breakfastTableBody">
-                    <!-- Breakfast table rows will be dynamically added here -->
+                    
                   </tbody>
-
-                  <!-- Lunch category -->
+                  
                   <tr class="category-row">
                     <td colspan="7" class="text-center font-weight-bold">Lunch</td>
                   </tr>
                   <tbody id="lunchTableBody">
-                    <!-- Lunch table rows will be dynamically added here -->
+                    
                   </tbody>
-
-                  <!-- Dinner category -->
+                  
                   <tr class="category-row">
                     <td colspan="7" class="text-center font-weight-bold">Dinner</td>
                   </tr>
                   <tbody id="dinnerTableBody">
-                    <!-- Dinner table rows will be dynamically added here -->
+                    
                   </tbody>
-
-                  <!-- Snack category -->
+                  
                   <tr class="category-row">
                     <td colspan="7" class="text-center font-weight-bold">Snack</td>
                   </tr>
                   <tbody id="snackTableBody">
-                    <!-- Snack table rows will be dynamically added here -->
+                    
                   </tbody>
                 </table>
               </div>
             </div>
-            <!-- Content Row -->
+            
           </div>
-          <!-- /.container-fluid -->
+          
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
+        
+        
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -323,18 +299,16 @@
             </div>
           </div>
         </footer>
-        <!-- End of Footer -->
+        
       </div>
-      <!-- End of Content Wrapper -->
+      
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
+    
+    
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
+    
     <div
       class="modal fade"
       id="logoutModal"
@@ -372,21 +346,16 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
+    
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
+    
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
+    
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
+    
     <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
+    
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
   </body>
@@ -408,7 +377,6 @@
   document.getElementById("date").value = new Date()
     .toISOString()
     .split("T")[0];
-
   function handleSearchInput(inputId, resultId, delay) {
     let timeoutID;
     document.getElementById(inputId).addEventListener("input", function () {
@@ -436,15 +404,13 @@
       }, delay);
     });
   }
-
   function displaySearchResults(resultId, results) {
-    // Clear existing content in the searchResult container
+    
     document.getElementById(resultId).innerHTML = "";
-
-    // Assuming results is an array in the returned JSON
+    
     if (Array.isArray(results)) {
       for (var i = 0; i < results.length; i++) {
-        // Adjust the property names based on your actual data structure
+        
         var cardHtml =
           '<div class="mb-2 card-container" data-fdcid="' +
           results[i].fdcId +
@@ -454,7 +420,7 @@
           '<div class="row no-gutters align-items-center">' +
           '<div class="col mr-2">' +
           '<div class="text-xs font-weight-bold text-grey mb-1">' +
-          results[i].foodCategory + // Adjust property name based on your actual data structure
+          results[i].foodCategory + 
           "</div>" +
           '<div class="h5 mb-0 font-weight-bold text-primary">' +
           results[i].description +
@@ -473,24 +439,20 @@
           "</div>" +
           "</div>" +
           "</div>";
-
         document.getElementById(resultId).innerHTML += cardHtml;
       }
     } else {
       console.error("Unexpected data format:", results);
     }
   }
-
   function getCalories(foodNutrients, nutrientname) {
     var energyNutrient = foodNutrients.find(function (nutrient) {
       return nutrient.nutrientName === nutrientname;
     });
-
     return energyNutrient
       ? energyNutrient.value + " " + energyNutrient.unitName
       : " - ";
   }
-
   function handleCardClick(selectedfdcId, resultId) {
     $.ajax({
       url:
@@ -503,17 +465,13 @@
         fdcId = selectedfdcId;
         console.log(fdcId);
         searchinput.value = data.description;
-        servinginput.value = ""; // Clear servings input
-
-        // Enable the inputs and dropdown
+        servinginput.value = ""; 
+        
         servinginput.disabled = false;
-
         portionsizedropdown.innerHTML += generatePortionOptions(result);
         portionsizedropdown.disabled = false;
         addfoodbutton.disabled = false;
-
         document.getElementById("leftsearchResult").innerHTML = "";
-
         console.log(result);
       },
       error: function (error) {
@@ -521,21 +479,17 @@
       },
     });
   }
-
   function generatePortionOptions(data) {
     let optionsHTML = "";
-
     if (data.foodPortions) {
       for (const portion of data.foodPortions) {
-        // Divide gramWeight by 100 for the value attribute
+        
         const value = portion.gramWeight / 100;
         optionsHTML += `<option value="${value}">${portion.modifier}</option>`;
       }
     }
-
     return optionsHTML;
   }
-
   function addFoodEntry() {
     if (
       searchinput.value === null ||
@@ -550,9 +504,8 @@
       console.error("One or more field are null.");
       return;
     }
-
     $.ajax({
-      url: "insertfood.php", // Adjust the path to your PHP script
+      url: "insertfood.php", 
       method: "POST",
       data: {
         UID: UID,
@@ -579,7 +532,6 @@
       },
     });
   }
-
   document
     .getElementById("leftsearchResult")
     .addEventListener("click", function (event) {
@@ -589,16 +541,14 @@
         handleCardClick(fdcId, "leftsearchResult");
       }
     });
-
   $(document).ready(function () {
-    // Call the function when the document is ready
+    
     fetchData();  
 });
   function getNutrients(foodNutrients, nutrientname, portion) {
     var energyNutrient = foodNutrients.find(function (nutrient) {
       return nutrient.nutrient.name === nutrientname;
     });
-
     energyvalue = portion * energyNutrient.amount;
      energyvalue = parseFloat(energyvalue.toFixed(2));
     return energyNutrient
@@ -608,9 +558,9 @@
   
   
     function fetchData() {
-      // Make an AJAX request to fetch data
+      
       $.ajax({
-        url: "fetchmeal.php", // Replace with the actual PHP script to fetch data
+        url: "fetchmeal.php", 
         method: "POST",
         data: {
           UID: UID,
@@ -619,10 +569,8 @@
         dataType: "json",
         success: function (response) {
           console.log(response);
-
-          // Assuming the response is a JSON object, you can parse it
-
-          // Update the table with the fetched data
+          
+          
           updateTable(response);
         },
         error: function (error) {
@@ -630,23 +578,20 @@
         },
       });
     }
-
     function updateTable(data) {
-      // Assuming you have separate tbody elements for each category
+      
       updateCategoryTable("breakfastTableBody", data, '1');
       updateCategoryTable("lunchTableBody", data, '2');
       updateCategoryTable("dinnerTableBody", data, '3');
       updateCategoryTable("snackTableBody", data, '4');
     }
-
     function updateCategoryTable(tableBodyId, categoryData, meal_type) {
       var tableBody = $("#" + tableBodyId);
       filteredData = categoryData.filter(function (item) {
         return item.meal_type === meal_type;
       });
       tableBody.empty();
-
-      // Append rows based on the fetched data for the category
+      
       for (var i = 0; i < filteredData.length; i++) {
         var rowData = filteredData[i];
         intake_amount = rowData.servings_value * rowData.portion_unit * 100;
@@ -689,14 +634,11 @@
           "</td>" +
            "<td><a onclick='deletefooddiary("+rowData.meal_id+")' class='btn btn-danger'>Delete</a></td>" + 
           "</tr>";
-
         tableBody.append(rowHtml);
       }
     }
-
   
 function deletefooddiary(meal_id) {
-
     $.ajax({
         type: "POST",
         url: "deletefooddiary.php", 
@@ -710,12 +652,10 @@ function deletefooddiary(meal_id) {
         }
     });
 }
-
 document.getElementById("date").addEventListener("change", function() {
     
     fetchData();
 });
-
   
   handleSearchInput("leftsearchInput", "leftsearchResult", 300);
 </script>

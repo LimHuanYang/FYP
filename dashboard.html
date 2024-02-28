@@ -9,19 +9,14 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
     <title>Dashboard</title>
-
     <link
       href="vendor/fontawesome-free/css/all.min.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link href="https: rel="stylesheet" />
-
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
   </head>
-
   <body id="page-top">
     <div id="wrapper">
       <ul
@@ -34,16 +29,13 @@
         >
           <div class="sidebar-brand-text mx-3">Nutribalance</div>
         </a>
-
         <hr class="sidebar-divider my-0" />
-
         <li class="nav-item active">
           <a class="nav-link" href="dashboard.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
           >
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="fooddiary.html">
             <i class="fas fa-fw fa-egg"></i>
@@ -74,7 +66,6 @@
             >
               <i class="fa fa-bars"></i>
             </button>
-
             <ul class="navbar-nav ml-auto">
               <li class="nav-item dropdown no-arrow d-sm-none">
                 <a
@@ -88,7 +79,6 @@
                 >
                   <i class="fas fa-search fa-fw"></i>
                 </a>
-
                 <div
                   class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                   aria-labelledby="searchDropdown"
@@ -111,7 +101,6 @@
                   </form>
                 </div>
               </li>
-
               <li class="nav-item dropdown no-arrow">
                 <a
                   class="nav-link dropdown-toggle"
@@ -131,7 +120,6 @@
                     src="img/undraw_profile.svg"
                   />
                 </a>
-
                 <div
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
@@ -156,7 +144,6 @@
               </li>
             </ul>
           </nav>
-
           <div class="container-fluid">
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -168,7 +155,6 @@
                 ><i class="fas fa-fw fa-hamburger"></i> Add Food</a
               >
             </div>
-
             <div class="row">
               <div class="col-xl-6 col-md-6 mb-4">
                 <div class="card border-left-danger shadow h-100 py-2">
@@ -192,7 +178,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="col-xl-6 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
                   <div class="card-body">
@@ -215,7 +200,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-xl-6 col-lg-7 mb-4">
                 <div class="card shadow mb-4">
@@ -226,79 +210,61 @@
                   </div>
                   <div class="card-body">
                     <h4 class="small font-weight-bold">
-                      Carbohydrate<span class="float-right">20</span>
+                      Carbohydrate<span
+                        id="carbsintake"
+                        class="float-right"
+                      ></span>
                     </h4>
                     <div class="progress mb-4">
                       <div
+                        id="carbsprogressbar"
                         class="progress-bar"
                         role="progressbar"
-                        style="width: 50%"
+                        style="width: 0%"
                         aria-valuenow="0"
                         aria-valuemin="0"
                         aria-valuemax="325"
                       ></div>
                     </div>
                     <h4 class="small font-weight-bold">
-                      Protein <span class="float-right">40%</span>
+                      Protein
+                      <span class="float-right" id="proteinintake"></span>
                     </h4>
                     <div class="progress mb-4">
                       <div
+                        id="proteinprogressbar"
                         class="progress-bar"
                         role="progressbar"
-                        style="width: 40%; background-color: #ff0000"
+                        style="width: 0%; background-color: #ff0000"
                         aria-valuenow="40"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                     <h4 class="small font-weight-bold">
-                      Fats<span class="float-right">60%</span>
+                      Fats<span class="float-right" id="fatintake"></span>
                     </h4>
                     <div class="progress mb-4">
                       <div
+                        id="fatprogressbar"
                         class="progress-bar bg-warning"
                         role="progressbar"
-                        style="width: 60%"
+                        style="width: 0%"
                         aria-valuenow="60"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
                     </div>
                     <h4 class="small font-weight-bold">
-                      Fiber <span class="float-right">80%</span>
+                      Fiber <span class="float-right" id="fiberintake"></span>
                     </h4>
                     <div class="progress mb-4">
                       <div
+                        id="fiberprogressbar"
                         class="progress-bar bg-success"
                         role="progressbar"
-                        style="width: 80%"
+                        style="width: 0%"
                         aria-valuenow="80"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                    <h4 class="small font-weight-bold">
-                      Vitamins <span class="float-right">80%</span>
-                    </h4>
-                    <div class="progress mb-4">
-                      <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 80%; background-color: #fd7e14"
-                        aria-valuenow="80"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      ></div>
-                    </div>
-                    <h4 class="small font-weight-bold">
-                      Mineral <span class="float-right">Complete!</span>
-                    </h4>
-                    <div class="progress">
-                      <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="100"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
@@ -327,7 +293,6 @@
                       </a>
                     </div>
                   </div>
-
                   <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
                       <canvas id="myPieChart"></canvas>
@@ -384,7 +349,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="card-body">
                     <div class="chart-area">
                       <canvas id="myAreaChart"></canvas>
@@ -395,7 +359,6 @@
             </div>
           </div>
         </div>
-
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -405,11 +368,9 @@
         </footer>
       </div>
     </div>
-
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
     <div
       class="modal fade"
       id="logoutModal"
@@ -447,22 +408,18 @@
         </div>
       </div>
     </div>
-
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
     <script src="js/sb-admin-2.min.js"></script>
-
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
   </body>
 </html>
 <script src="checklogin.js"></script>
 <script>
   let totalcaloriesintake;
+  let dailyCalories = Array(31).fill(0);
   function fetchmealData() {
     $.ajax({
       url: "dashboard.php",
@@ -473,11 +430,42 @@
       dataType: "json",
       success: function (response) {
         console.log(response);
+        totalcaloriesintake = calculateTotalCalories(response, "Energy");
+        carbsintake = calculateTotalCalories(
+          response,
+          "Carbohydrate, by difference"
+        );
+        proteinintake = calculateTotalCalories(response, "Protein");
+        fatsintake = calculateTotalCalories(response, "Total lipid (fat)");
+        fiberintake = calculateTotalCalories(response, "Fiber, total dietary");
+        document.getElementById("totalcaloriesintake").innerHTML =
+          totalcaloriesintake;
+        document.getElementById("carbsintake").innerHTML = carbsintake + "g";
+        document.getElementById("proteinintake").innerHTML =
+          proteinintake + "g";
+        document.getElementById("fatintake").innerHTML = fatsintake + "g";
+        document.getElementById("fiberintake").innerHTML = fiberintake + "g";
+        fetchuserData(
+          UID,
+          totalcaloriesintake,
+          carbsintake,
+          proteinintake,
+          fatsintake,
+          fiberintake
+        );
+        response.forEach((meal) => {
+          
+          const day = new Date(meal.date).getDate();
+          
+          const calories = meal.foodNutrients.find(
+            (nutrient) => nutrient.nutrient.number === "208"
+          );
+          if (calories) {
+            dailyCalories[day - 1] += calories.amount;
+          }
+        });
         
-        totalcaloriesintake = calculateTotalCalories(response);
-
-        document.getElementById("totalcaloriesintake").innerHTML =totalcaloriesintake;
-        fetchuserData(UID,totalcaloriesintake);
+        updateAreaChart(dailyCalories);
         return response;
       },
       error: function (error) {
@@ -485,7 +473,14 @@
       },
     });
   }
-  function fetchuserData(UID,totalcaloriesintake) {
+  function fetchuserData(
+    UID,
+    totalcaloriesintake,
+    carbsintake,
+    proteinintake,
+    fatintake,
+    fiberintake
+  ) {
     $.ajax({
       url: "fetchuser.php",
       method: "POST",
@@ -494,56 +489,261 @@
       },
       dataType: "json",
       success: function (response) {
-        console.log(response);        
+        console.log(response);
         const bmr = calculateBMR(response);
-        document.getElementById("caloriesremaining").innerHTML =bmr-totalcaloriesintake;
+        const carbstarget = (bmr * 25) / 100 / 4;
+        const proteintarget = (bmr * 25) / 100 / 4;
+        const fattarget = (bmr * 25) / 100 / 9;
+        const fibertarget = response.gender === "female" ? 25 : 38;
+        document.getElementById("caloriesremaining").innerHTML =
+          bmr - totalcaloriesintake;
+        document.getElementById("carbsprogressbar").style.width = `${
+          (carbsintake / carbstarget) * 100
+        }%`;
+        document.getElementById("proteinprogressbar").style.width = `${
+          (proteinintake / proteintarget) * 100
+        }%`;
+        document.getElementById("fatprogressbar").style.width = `${
+          (fatintake / fattarget) * 100
+        }%`;
+        document.getElementById("fiberprogressbar").style.width = `${
+          (fiberintake / fibertarget) * 100
+        }%`;
+        createPieChart(carbsintake, proteinintake, fatintake);
       },
       error: function (error) {
         console.error("Error fetching data:", error);
       },
     });
   }
-  function calculateTotalCalories(meals) {
+  function calculateTotalCalories(meals, selectednutrient) {
     const currentDate = new Date().toISOString().split("T")[0];
     let totalCalories = 0;
     for (const meal of meals) {
       if (meal.date === currentDate) {
         let mealCalories = 0;
         for (const nutrient of meal.foodNutrients) {
-          if (nutrient.nutrient.name === "Energy") {
-            mealCalories += nutrient.amount * parseFloat(meal.servings_value);
+          if (nutrient.nutrient.name === selectednutrient) {
+            mealCalories += nutrient.amount * meal.servings_value;
           }
         }
         totalCalories += mealCalories;
       }
     }
-
-    return totalCalories;
+    return totalCalories.toFixed(2);
   }
-
   function calculateBMR(userData) {
-    // Extract user data
+    
     const { gender, weight, height, dob } = userData;
-
-    // Calculate age
+    
     const dobDate = new Date(dob);
     const currentDate = new Date();
     const age = currentDate.getFullYear() - dobDate.getFullYear();
-
-    // Calculate BMR based on gender
+    
     let bmr;
     if (gender === "male") {
       bmr = Math.round(66.5 + 13.75 * weight + 5.003 * height - 6.75 * age);
     } else if (gender === "female") {
       bmr = Math.round(655.1 + 9.563 * weight + 1.85 * height - 4.676 * age);
     } else {
-      // Handle other gender values if needed
+      
       console.error("Invalid gender:", gender);
       return null;
     }
-
     return bmr;
   }
-
+  (Chart.defaults.global.defaultFontFamily = "Nunito"),
+    '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  Chart.defaults.global.defaultFontColor = "#858796";
+  function createPieChart(carbsintake, proteinintake, fatintake) {
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Carbohydrate", "Protein", "Fat"],
+        datasets: [
+          {
+            data: [carbsintake, proteinintake, fatintake],
+            backgroundColor: ["#0d6efd", "#FF0000", "#f0ad4e"],
+            hoverBackgroundColor: ["#0a58ca", "#cc0000", "#d49c32"],
+            hoverBorderColor: ["#094080", "#8c0000", "#9b7c26"],
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          borderColor: "#dddfeb",
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false,
+        },
+        cutoutPercentage: 80,
+      },
+    });
+  }
+Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#858796';
+function number_format(number, decimals, dec_point, thousands_sep) {
+  
+  
+  number = (number + '').replace(',', '').replace(' ', '');
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+    s = '',
+    toFixedFix = function(n, prec) {
+      var k = Math.pow(10, prec);
+      return '' + Math.round(n * k) / k;
+    };
+  
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
+}
+function updateAreaChart(dailyCalories) {
+var ctx = document.getElementById("myAreaChart");
+var myLineChart = new Chart(ctx, {
+  type: "line",
+  data: {
+    labels: [
+      "Day 1",
+      "Day 2",
+      "Day 3",
+      "Day 4",
+      "Day 5",
+      "Day 6",
+      "Day 7",
+      "Day 8",
+      "Day 9",
+      "Day 10",
+      "Day 11",
+      "Day 12",
+      "Day 13",
+      "Day 14",
+      "Day 15",
+      "Day 16",
+      "Day 17",
+      "Day 18",
+      "Day 19",
+      "Day 20",
+      "Day 21",
+      "Day 22",
+      "Day 23",
+      "Day 24",
+      "Day 25",
+      "Day 26",
+      "Day 27",
+      "Day 28",
+      "Day 29",
+      "Day 30",
+      "Day 31",
+    ],
+    datasets: [
+      {
+        label: "Calories Intake",
+        lineTension: 0.3,
+        backgroundColor: "rgba(78, 115, 223, 0.05)",
+        borderColor: "rgba(78, 115, 223, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointBorderColor: "rgba(78, 115, 223, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: dailyCalories,
+      },
+    ],
+  },
+  options: {
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        left: 10,
+        right: 25,
+        top: 25,
+        bottom: 0,
+      },
+    },
+    scales: {
+      xAxes: [
+        {
+          time: {
+            unit: "date",
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            maxTicksLimit: 7,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            maxTicksLimit: 5,
+            padding: 10,
+            
+            callback: function (value, index, values) {
+              return number_format(value) + "kcal";
+            },
+          },
+          gridLines: {
+            color: "rgb(234, 236, 244)",
+            zeroLineColor: "rgb(234, 236, 244)",
+            drawBorder: false,
+            borderDash: [2],
+            zeroLineBorderDash: [2],
+          },
+        },
+      ],
+    },
+    legend: {
+      display: true,
+    },
+    tooltips: {
+      backgroundColor: "rgb(255,255,255)",
+      bodyFontColor: "#858796",
+      titleMarginBottom: 10,
+      titleFontColor: "#6e707e",
+      titleFontSize: 14,
+      borderColor: "#dddfeb",
+      borderWidth: 1,
+      xPadding: 15,
+      yPadding: 15,
+      displayColors: false,
+      intersect: false,
+      mode: "index",
+      caretPadding: 10,
+      callbacks: {
+        label: function (tooltipItem, chart) {
+          var datasetLabel =
+            chart.datasets[tooltipItem.datasetIndex].label || "";
+          return (
+            datasetLabel + ": " + number_format(tooltipItem.yLabel) + "kcal"
+          );
+        },
+      },
+    },
+  },
+});}
   fetchmealData();
 </script>

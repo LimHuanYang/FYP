@@ -9,52 +9,41 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
     <title>Food Information</title>
-
-    <!-- Custom fonts for this template-->
+    
     <link
       href="vendor/fontawesome-free/css/all.min.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet"
-    />
-
-    <!-- Custom styles for this template-->
+    
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
   </head>
-
   <body id="page-top">
-    <!-- Page Wrapper -->
+    
     <div id="wrapper">
-      <!-- Sidebar -->
+      
       <ul
         class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
         id="accordionSidebar"
       >
-        <!-- Sidebar - Brand -->
+        
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
           href="dashboard.html"
         >
           <div class="sidebar-brand-text mx-3">Nutribalance</div>
         </a>
-
-        <!-- Divider -->
+        
         <hr class="sidebar-divider my-0" />
-
-        <!-- Nav Item - Dashboard -->
+        
         <li class="nav-item active">
           <a class="nav-link" href="dashboard.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
           >
         </li>
-
-        <!-- Nav Item - Utilities Collapse Menu -->
+        
         <li class="nav-item">
           <a class="nav-link" href="fooddiary.html">
             <i class="fas fa-fw fa-egg"></i>
@@ -74,27 +63,25 @@
           </a>
         </li>
       </ul>
-      <!-- End of Sidebar -->
-
-      <!-- Content Wrapper -->
+      
+      
       <div id="content-wrapper" class="d-flex flex-column">
-        <!-- Main Content -->
+        
         <div id="content">
-          <!-- Topbar -->
+          
           <nav
             class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
           >
-            <!-- Sidebar Toggle (Topbar) -->
+            
             <button
               id="sidebarToggleTop"
               class="btn btn-link d-md-none rounded-circle mr-3"
             >
               <i class="fa fa-bars"></i>
             </button>
-
-            <!-- Topbar Navbar -->
+            
             <ul class="navbar-nav ml-auto">
-              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              
               <li class="nav-item dropdown no-arrow d-sm-none">
                 <a
                   class="nav-link dropdown-toggle"
@@ -107,7 +94,7 @@
                 >
                   <i class="fas fa-search fa-fw"></i>
                 </a>
-                <!-- Dropdown - Messages -->
+                
                 <div
                   class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                   aria-labelledby="searchDropdown"
@@ -130,8 +117,7 @@
                   </form>
                 </div>
               </li>
-
-              <!-- Nav Item - User Information -->
+              
               <li class="nav-item dropdown no-arrow">
                 <a
                   class="nav-link dropdown-toggle"
@@ -151,7 +137,7 @@
                     src="img/undraw_profile.svg"
                   />
                 </a>
-                <!-- Dropdown - User Information -->
+                
                 <div
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
@@ -176,19 +162,16 @@
               </li>
             </ul>
           </nav>
-          <!-- End of Topbar -->
-
-          <!-- Begin Page Content -->
+          
+          
           <div class="container-fluid">
             <div id="searchResult"></div>
-
-            <!-- Content Row -->
+            
           </div>
-          <!-- /.container-fluid -->
+          
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
+        
+        
         <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -196,18 +179,16 @@
             </div>
           </div>
         </footer>
-        <!-- End of Footer -->
+        
       </div>
-      <!-- End of Content Wrapper -->
+      
     </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
+    
+    
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
+    
     <div
       class="modal fade"
       id="logoutModal"
@@ -245,21 +226,16 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
+    
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
+    
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
+    
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
+    
     <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
+    
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
   </body>
@@ -338,7 +314,6 @@
     "Lactose",
     "Maltose",
   ];
-
   $.ajax({
     url:
       "https://api.nal.usda.gov/fdc/v1/food/" +
@@ -354,10 +329,8 @@
       console.error("Error fetching data:", error);
     },
   });
-
   function showNutrients(data) {
     let foodCategoryDescription;
-
     if (data.dataType === "SR Legacy" || data.dataType === "Foundation") {
       foodCategoryDescription = data.foodCategory.description;
     } else if (data.dataType === "Survey (FNDDS)") {
@@ -366,7 +339,6 @@
     } else if (data.dataType === "Branded") {
       foodCategoryDescription = data.brandedFoodCategory;
     }
-
     const optionListHTML = generatePortionOptions(data);
     const mineralsListHTML = showNutrientIfExists(minerals, "mg", data);
     const aminoacidsListHTML = showNutrientIfExists(aminoacids, "g", data);
@@ -406,7 +378,7 @@
                             ${optionListHTML}
                           </select>
                         </div>
-                        <!-- Nutrient List -->
+                        
                         <div class="nutrient-list">
                           <div class="nutrient">
                             <span class="energy-name">Energy</span>:
@@ -433,8 +405,8 @@
       `
                           </div>
                           <hr />
-                          <!-- Macronutrients -->
-                          <!-- Protein -->
+                          
+                          
                                 <div class="nutrient-category">Protein: ` +
       getNutrient(data.foodNutrients, "Protein") +
       `</div>
@@ -458,37 +430,31 @@
       `
                           </div>
                           <hr />
-
-                                <!-- Minerals -->
+                                
                                 <div class="nutrient-category">Minerals: </div>
                                 <ul class="sub-nutrient-list">
                                     ${mineralsListHTML}
                                 </ul>
-
-                                <!-- Vitamins -->
+                                
                                 <div class="nutrient-category">Vitamins</div>
                                 <ul class="sub-nutrient-list">
                                     ${vitaminsListHTML}
                                 </ul>
-
-                                <!-- Vitamins -->
+                                
                                 <div class="nutrient-category">Total Sugars: ` +
       getNutrient(data.foodNutrients, "Total Sugars") +
       `</div>
                                 <ul class="sub-nutrient-list">
                                     ${sugarsListHTML}
                                 </ul>
-
-                                <!-- ... other HTML elements ... -->
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>`;
-
     document.getElementById("searchResult").innerHTML = resultHTML;
   }
-
   function generateNutrientHTML(nutrientName, nutrientValue, nutrientUnit) {
     convertedValue = (nutrientValue * conversion).toFixed(3);
     return `<li id="${nutrientName.toLowerCase()}">
@@ -498,32 +464,27 @@
   }
   function generatePortionOptions(data) {
     let optionsHTML = "";
-
     if (data.foodPortions) {
       for (const portion of data.foodPortions) {
-        // Divide gramWeight by 100 for the value attribute
+        
         const value = portion.gramWeight / 100;
         optionsHTML += `<option value="${value}">${portion.modifier}</option>`;
       }
     }
-
     return optionsHTML;
   }
-
   function showNutrientIfExists(nutrientArray, nutrientUnit, data) {
     let nutrientListHTML = "";
-
-    // Iterate over each nutrient in the nutrientArray.
+    
     for (const nutrientName of nutrientArray) {
-      // Check if there is a nutrient in the foodNutrients array with the specified name.
+      
       const matchingNutrient = data.foodNutrients.find((nutrient) =>
         nutrient.nutrient.name
           .toLowerCase()
           .includes(nutrientName.toLowerCase())
       );
-
       if (matchingNutrient) {
-        // If the nutrient is found, generate HTML for it.
+        
         nutrientListHTML += generateNutrientHTML(
           matchingNutrient.nutrient.name,
           matchingNutrient.amount,
@@ -531,27 +492,23 @@
         );
       }
     }
-
-    // Return the accumulated HTML for the nutrient list.
+    
     return nutrientListHTML;
   }
   function getNutrient(foodNutrients, nutrientName) {
-  // Search for the nutrient where nutrientName is included in the actual nutrient name
+  
   var matchingNutrient = foodNutrients.find(function (nutrient) {
     return nutrient.nutrient.name.includes(nutrientName);
   });
-
-  // If found, calculate the converted amount; otherwise, return a default value
+  
   return matchingNutrient
     ? (matchingNutrient.amount * conversion).toFixed(3) +
       " " +
       matchingNutrient.nutrient.unitName
     : " - ";
 }
-
   function handlePortionChange(selectElement) {
     conversion = selectElement.value;
-
     showNutrients(result);
   }
 </script>

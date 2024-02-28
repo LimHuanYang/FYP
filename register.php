@@ -1,5 +1,4 @@
 <?php
-// Include the conn.php file for database connection
 include("conn.php");
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -8,14 +7,8 @@ $date = $_POST['date'];
 $gender = $_POST['gender'];
 $height = $_POST['height'];
 $weight = $_POST['weight'];
-
 $query = "SELECT email,password FROM user WHERE email ='$email'";
 $insertsql = "INSERT INTO user (username, password, email, dob, gender, height, weight) VALUES ('$username', '$password', '$email','$date','$gender', $height, $weight)";
-
-
-
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $query);
     if ($result->num_rows > 0) {
@@ -27,10 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(array("status" => "error", "message" => "Error during registration: " . $conn->error));
         }
     }
-
     
-
-    // Close the prepared statement
+    
     $conn->close();
 }
 ?>

@@ -16,12 +16,10 @@ function validateUsername() {
     return false;
   }
 }
-
 function validateEmail() {
   var email = document.getElementById("emailInput").value;
   emailalert = document.getElementById("emailalert");
   var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   if (!email) {
     emailalert.innerText = "Please fill in your email";
     emailalert.style.display = "block";
@@ -59,12 +57,10 @@ function validatePassword() {
     return true;
   }
 }
-
 function validateRepeatPassword() {
   var password = document.getElementById("passwordInput").value;
   var repeatPassword = document.getElementById("repeatpasswordInput").value;
   passwordalert = document.getElementById("passwordalert");
-
   if (password === repeatPassword) {
     passwordalert.innerText = "";
     passwordalert.style.display = "none";
@@ -101,7 +97,6 @@ function validateGender() {
     return false;
   }
 }
-
 function validateHeight() {
   height = document.getElementById("heightInput").value;
   hwalert = document.getElementById("hwalert");
@@ -119,7 +114,6 @@ function validateHeight() {
     return false;
   }
 }
-
 function validateWeight() {
   weight = document.getElementById("weightInput").value;
   hwalert = document.getElementById("hwalert");
