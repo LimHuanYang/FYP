@@ -291,6 +291,7 @@ function displaySearchResults(results) {
     for (var i = 0; i < results.length; i++) {
       
       var cardHtml =
+      `<a href=foodinfo.html?fdcId=${results[i].fdcId}>`+
         '<div class="mb-2">' +
         '<div class="card border-left-info shadow h-100 py-2">' +
         '<div class="card-body">' +
@@ -309,7 +310,8 @@ function displaySearchResults(results) {
         "</div>" +
         "</div>" +
         "</div>" +
-        "</div>";
+        "</div>"+
+        `</a>`;
       document.getElementById("searchResult").innerHTML += cardHtml;
     }
   } else {
